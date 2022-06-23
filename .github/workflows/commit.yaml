@@ -1,0 +1,72 @@
+---
+name: Ansible Commit
+
+on: 
+  pull_request: 
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3.
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install test dependencies.
+        run: pip3 install yamllint ansible-lint
+
+      - name: Ansible Lint
+        run: ansible-lint .
+
+      - name: Yaml Lint
+        run: yamllint .
+
+  molecule:
+    runs-on: ubuntu-latest
+    
+    env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+
+    strategy:
+      matrix:
+        distro:
+          - ubuntu:xenial
+          - ubuntu:bionic
+          - ubuntu:focal
+          - ubuntu:hirsute
+          - ubuntu:impish
+          - debian:stretch
+          - debian:buster
+          - debian:bullseye
+          - debian:bookworm
+
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v2
+
+      - name: Setting distro
+        run: |
+          export DISTRO_IMAGE=${{ matrix.distro }}
+          export DISTRO_NAME=${DISTRO_IMAGE/:/-}
+          echo "::set-env name=DISTRO_IMAGE::$DISTRO_IMAGE"
+          echo "::set-env name=DISTRO_NAME::$DISTRO_NAME"
+
+      - name: Set up Python 3.
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install test dependencies.
+        run: pip3 install ansible molecule[docker] docker
+      
+      - name: Run Molecule tests.
+        run: molecule test --all
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+          MOLECULE_DISTRO_NAME: ${{ env.DISTRO_NAME }}
+          MOLECULE_DISTRO_IMAGE: ${{ env.DISTRO_IMAGE }}

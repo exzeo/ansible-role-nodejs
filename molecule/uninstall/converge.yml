@@ -1,0 +1,7 @@
+---
+- name: Uninstall
+  hosts: all
+  roles:
+    - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
+      vars:
+        uninstall: true

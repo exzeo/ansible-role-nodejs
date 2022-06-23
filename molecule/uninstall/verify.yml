@@ -1,0 +1,13 @@
+- name: Verify
+  hosts: all
+  tasks:
+
+  - name: Check nodejs version
+    shell: "node --version"
+    register: nodejs_current_version
+    ignore_errors: yes
+
+  - name: Ensure nodejs is not installed
+    assert:
+      that:
+        - nodejs_current_version.rc != 0

@@ -1,0 +1,28 @@
+---
+#--------------------------------------------------------------
+# Debug
+#--------------------------------------------------------------
+# - name: Get {{ ansible_os_family }}
+#   debug:
+#     msg: "{{ ansible_os_family }}"
+
+# - name: Get {{ ansible_distribution }}
+#   debug:
+#     msg: "{{ ansible_distribution }}"
+
+#--------------------------------------------------------------
+# Tasks
+#--------------------------------------------------------------
+- name: Include tasks for install
+  include_tasks: "install.yml"
+  when: >
+    uninstall == false
+  tags:
+    - install
+
+- name: Include tasks for uninstall
+  include_tasks: "uninstall.yml"
+  when: >
+    uninstall == true
+  tags:
+    - uninstall
