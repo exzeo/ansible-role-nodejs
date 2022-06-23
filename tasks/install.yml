@@ -30,7 +30,7 @@
 
 - name: Ensure Node.js and npm are installed.
   ansible.builtin.apt:
-    name: "nodejs={{ nodejs_version|regex_replace('x', '') }}*"
+    name: "nodejs={{ nodejs_version | regex_replace('x', '') }}*"
     allow_downgrade: yes
     state: present
 
