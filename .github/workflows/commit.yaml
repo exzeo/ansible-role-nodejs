@@ -42,7 +42,6 @@ jobs:
           - debian:stretch
           - debian:buster
           - debian:bullseye
-          - debian:bookworm
 
     steps:
       - name: Check out the codebase.
