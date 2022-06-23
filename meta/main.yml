@@ -16,7 +16,6 @@ galaxy_info:
       - bionic
       - focal
       - hirsute
-      - impish
   - name: Debian
     versions:
       - stretch

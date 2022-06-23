@@ -38,7 +38,6 @@ jobs:
           - ubuntu:bionic
           - ubuntu:focal
           - ubuntu:hirsute
-          - ubuntu:impish
           - debian:stretch
           - debian:buster
 
