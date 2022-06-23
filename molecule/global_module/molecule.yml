@@ -1,0 +1,19 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+
+platforms:
+  - name: ${MOLECULE_DISTRO_NAME:-ubuntu-bionic}
+    image: ${MOLECULE_DISTRO_IMAGE:-ubuntu:bionic}
+
+provisioner:
+  name: ansible
+  log: True
+  options:
+    vvv: True
+
+verifier:
+  name: ansible

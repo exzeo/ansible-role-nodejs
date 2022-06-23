@@ -1,0 +1,24 @@
+---
+name: Ansible Galaxy Publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: anothrNick/github-tag-action@1.36.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: false
+          DEFAULT_BUMP: "patch"
+
+      - uses: robertdebock/galaxy-action@1.2.0
+        with:
+          galaxy_api_key: ${{ secrets.GALAXY_API_KEY }}
+          git_branch: main

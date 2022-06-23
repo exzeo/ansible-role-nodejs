@@ -1,0 +1,19 @@
+- name: Verify
+  hosts: all
+  tasks:
+  - name: Check nodejs version
+    shell: "node --version"
+    register: nodejs_current_version
+    changed_when: false
+    args:
+      executable: /bin/bash
+
+  - name: Ensure nodejs is installed
+    assert:
+      that:
+        - nodejs_current_version.rc == 0
+
+  - name: Ensure nodejs is correct version
+    assert:
+      that:
+        - "'v12.' in nodejs_current_version.stdout"

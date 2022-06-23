@@ -1,0 +1,9 @@
+---
+- name: Install
+  hosts: all
+  roles:
+    - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
+      vars:
+        npm_global_packages:
+        - name: serverless
+          # version: 3.15.0

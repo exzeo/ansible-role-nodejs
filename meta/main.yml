@@ -1,0 +1,32 @@
+---
+dependencies: []
+
+galaxy_info:
+  role_name: nodejs
+  author: exzeo
+  description: Ansible Role for mounting for installing nodejs
+  company: "Exzeo"
+  license: MIT
+  min_ansible_version: "2.1"
+
+  platforms:
+  - name: Ubuntu
+    versions:
+      - xenial
+      - bionic
+      - focal
+  - name: Debian
+    versions:
+      - stretch
+      - buster
+    
+  galaxy_tags:
+    - nodejs
+    - node
+    - javascript
+    - js
+    - development
+    - code
+    - system
+    - npm
+    - web
